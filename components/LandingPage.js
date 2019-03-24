@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, TouchableOpacity, Image, Icon, ScrollView } fro
 import { Constants } from 'expo';
 
 import LoginPage from './LoginPage.js';
+import BottomNav from "./BottomNav.js";
+import ClassRoom from './ClassRoom.js';
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -20,9 +22,9 @@ export default class LandingPage extends React.Component {
   }
 
   handle_page_turn = (page) => {
-    console.log(page);
+    // console.log(page);
     // console.log(this.state.user_type);
-    this.setState({current_content_page:JSON.stringify(page)});
+    this.setState({current_content_page:page});
   }
 
 
@@ -43,26 +45,64 @@ export default class LandingPage extends React.Component {
       return (<LoginPage title={this.state.user_type} handle_page_turn={this.handle_page_turn}></LoginPage>)
     }
     else {
-      switch(this.state.current_content_page) {
-        case "info":
-        <View style={styles.container}>
-            <Text>{this.state.current_content_page}</Text>
-            <Text>{this.state.user_type}</Text>
-            {/* <BottomNav go_to={this.handle_page_turn}></BottomNav> */}
-            <TouchableOpacity style={styles.bottom_nav} onPress={this.handle_page_turn.bind(this, "info1")}><Text>信息</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bottom_nav}><Text></Text></TouchableOpacity>
-        </View>
-        case "info2":
-          // code block
-          break;
-        default:
+      const page_id = this.state.current_content_page;
+      switch (page_id) {
+        case 1:
+        return(
+          <View style={styles.container}>
+              <Text>Home Page</Text>
+              <Text>{this.state.user_type}</Text>
+              {/* <BottomNav go_to={this.handle_page_turn}></BottomNav> */}
+              <BottomNav handle_page_turn={this.handle_page_turn}></BottomNav>
+          </View>
+        )
+          
+        case 2:
           return(
             <View style={styles.container}>
-                <Text>{this.state.current_content_page}</Text>
+                <Text>Info Page</Text>
                 <Text>{this.state.user_type}</Text>
                 {/* <BottomNav go_to={this.handle_page_turn}></BottomNav> */}
-                <TouchableOpacity style={styles.bottom_nav} onPress={this.handle_page_turn.bind(this, "info1")}><Text>最新消息</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.bottom_nav}><Text></Text></TouchableOpacity>
+                <BottomNav handle_page_turn={this.handle_page_turn}></BottomNav>
+            </View>
+          )
+        case 3:
+          return(
+            <View style={styles.container}>
+                <Text>Contact Us</Text>
+                <Text>{this.state.user_type}</Text>
+                {/* <BottomNav go_to={this.handle_page_turn}></BottomNav> */}
+                <BottomNav handle_page_turn={this.handle_page_turn}></BottomNav>
+            </View>
+          )
+        case 4:
+          return(
+            <View style={styles.container}>
+                <Text>Ranking</Text>
+                <Text>{this.state.user_type}</Text>
+                {/* <BottomNav go_to={this.handle_page_turn}></BottomNav> */}
+                <BottomNav handle_page_turn={this.handle_page_turn}></BottomNav>
+            </View>
+          )
+        case 5:
+          return(
+            <View style={styles.container}>
+                <Text>My record</Text>
+                <Text>{this.state.user_type}</Text>
+                {/* <BottomNav go_to={this.handle_page_turn}></BottomNav> */}
+                <ClassRoom user_type={this.state.user_type}></ClassRoom>
+                <BottomNav handle_page_turn={this.handle_page_turn}></BottomNav>
+            </View>
+          )
+        default:
+          // console.log("default switch trigged");
+          // console.log(this.state.current_content_page);
+          // console.log(page)
+          return(
+            <View style={styles.container}>
+                <Text>Error Handling Page</Text>
+                <Text>{this.state.user_type}</Text>
+                <BottomNav handle_page_turn={this.handle_page_turn}></BottomNav>
             </View>
           )
       }
@@ -87,12 +127,5 @@ const styles = StyleSheet.create({
   button_text: {
     fontSize:20
   },
-  bottom_nav: {
-    position:"absolute",
-    bottom:0,
-    backgroundColor:"grey",
-    margin:5,
-    padding:5
-  }
 });
 

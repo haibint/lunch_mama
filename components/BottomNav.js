@@ -1,63 +1,35 @@
 import * as React from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import BottomNavigation, {FullTab} from 'react-native-material-bottom-navigation';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+
+
 
 export default class BottomNav extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  tabs = [
-    {
-      key: 'games',
-      icon: 'gamepad-variant',
-      label: 'Games',
-      barColor: '#388E3C',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-    {
-      key: 'movies-tv',
-      icon: 'movie',
-      label: 'Movies & TV',
-      barColor: '#B71C1C',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-    {
-      key: 'music',
-      icon: 'music-note',
-      label: 'Music',
-      barColor: '#E64A19',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    }
-  ]
-
-  render() {
-    return (
-      <View>
-        <BottomNavigation
-          renderTab={this.renderTab}
-          tabs={this.tabs}
-        />
-      </View>
-    )
-  }
-
-  renderTab = ({ tab, isActive }) => {
-    if(tab.key === "games" && isActive === true) {
-      console.log("this is the game tab selected.");
-      this.props.go_to.bind("game tab");
+    constructor(props) {
+      super(props);
     }
 
-    return (
-      <FullTab
-        key={tab.key}
-        isActive={isActive}
-        label={tab.label}
-        renderIcon={this.renderIcon}
-      />
-    )
-  }
-
-  renderIcon = ({ isActive }) => {
-    return <View />
-  }
+    render() {
+        return(
+            <View style={styles.bottom_nav_contain}>
+                <TouchableOpacity style={styles.bottom_nav_tab} onPress={this.props.handle_page_turn.bind(this, 1)}><Text>最新消息</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.bottom_nav_tab} onPress={this.props.handle_page_turn.bind(this, 2)}><Text>健康資訊</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.bottom_nav_tab} onPress={this.props.handle_page_turn.bind(this, 3)}><Text>聯絡我們</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.bottom_nav_tab} onPress={this.props.handle_page_turn.bind(this, 4)}><Text>排行榜</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.bottom_nav_tab} onPress={this.props.handle_page_turn.bind(this, 5)}><Text>我的紀錄</Text></TouchableOpacity>
+            </View>
+        )
+    }
 }
+
+const styles = StyleSheet.create({
+    bottom_nav_contain: {
+        flexDirection:"row",
+        position:"absolute",
+        bottom:0,
+    },
+    bottom_nav_tab: {
+        backgroundColor:"grey",
+        margin:5,
+        padding:5
+    }
+})

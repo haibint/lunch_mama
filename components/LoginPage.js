@@ -29,7 +29,7 @@ export default class LoginPage extends React.Component {
         <Text style={styles.main_title}>{this.props.title + " Login"}</Text>
         <TextInput style={styles.text_input} placeholder="Username" textContentType="username"/>
         <TextInput style={styles.text_input} placeholder="Password" textContentType="password" secureTextEntry={true}/>
-        <TouchableOpacity style={styles.button} onPress={this.props.handle_page_turn.bind(this, "Home")}><Text>Log In</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={this.props.handle_page_turn.bind(this, 1)}><Text>Log In</Text></TouchableOpacity>
         <Button title="Forgot Password" onPress={this.forget_password}/>
       </View>
     );
