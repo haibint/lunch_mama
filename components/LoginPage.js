@@ -15,12 +15,41 @@ export default class LoginPage extends React.Component {
     
   }
 
-  // verify_user() {
-  //   alert("verifying User.");
-  //   this.props.handle_page_turn;
-  // }
+  verify_user(username, password) {
+    console.log(this.props);
+    console.log(username);
+    console.log(password);
+    var that = this;
+    fetch("http://128.199.210.235/auth?username="+username+"&password="+password)
+    .then(response => response.json())
+    .then(function(json){
+      console.log(that.props);  // can not access props
+      console.log(json.verified);
+      that.props.handle_page_turn(1);
+      
+      }
+    )
+    .catch(err => console.log(err))
+  }
+
+  sign_up_user(username, password) {
+    // console.log(this.props);
+    // console.log(username);
+    // console.log(password);
+    var that = this;
+    fetch("http://128.199.210.235/sign_up?username=haibin&password=123456")
+    .then(response => response.json())
+    .then(function(json){
+      console.log(that.props);  // can not access props
+      console.log(json.verified);
+      that.props.handle_page_turn(1);
+      }
+    )
+    .catch(err => console.log(err))
+  }
+
   forget_password() {
-    console.log("the user forgot the password.");
+    alert("User forgot password.")
   }
 
   render() {
@@ -29,7 +58,7 @@ export default class LoginPage extends React.Component {
         <Text style={styles.main_title}>{this.props.title + " Login"}</Text>
         <TextInput style={styles.text_input} placeholder="Username" textContentType="username"/>
         <TextInput style={styles.text_input} placeholder="Password" textContentType="password" secureTextEntry={true}/>
-        <TouchableOpacity style={styles.button} onPress={this.props.handle_page_turn.bind(this, 1)}><Text>Log In</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={this.verify_user.bind(this, 'haibin', '123456')}><Text>Log In</Text></TouchableOpacity>
         <Button title="Forgot Password" onPress={this.forget_password}/>
       </View>
     );
